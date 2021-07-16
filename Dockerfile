@@ -20,6 +20,7 @@ COPY --from=node /app /app
 RUN chown -R django /app
 
 COPY gunicorn.sh /gunicorn.sh
+RUN python manage.py collectstatic --noinput --clear
 RUN sed -i 's/\r//' /gunicorn.sh \
     && chmod +x /gunicorn.sh \
     && chown django /gunicorn.sh
